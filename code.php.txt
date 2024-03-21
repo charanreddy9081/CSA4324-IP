@@ -1,0 +1,28 @@
+<?php
+
+// Get the email address from the request body
+$email = $_POST['email'] ?? '';
+
+// Validate the email address
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  http_response_code(400);
+  echo 'Invalid email address';
+  exit;
+}
+
+// Send the email alert
+$to = 'your-email@example.com';
+$subject = 'New email alert';
+$message = 'A new email alert has been received from ' . $email;
+$headers = 'From: ' . $email;
+
+if (!mail($to, $subject, $message, $headers)) {
+  http_response_code(500);
+  echo 'Failed to send email alert';
+  exit;
+}
+
+http_response_code(200);
+echo 'Email alert sent successfully';
+
+?>
