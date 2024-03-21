@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Gmail to WhatsApp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            margin-top: 50px;
+            width: 300px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Send Gmail to WhatsApp</h1>
+    <form id="gmail-to-whatsapp-form">
+        <label for="gmail-address">Gmail Address:</label>
+        <input type="email" id="gmail-address" name="gmail-address" required>
+
+        <label for="whatsapp-number">WhatsApp Number:</label>
+        <input type="text" id="whatsapp-number" name="whatsapp-number" required>
+
+        <label for="gmail-subject">Gmail Subject:</label>
+        <input type="text" id="gmail-subject" name="gmail-subject" required>
+
+        <label for="gmail-message">Gmail Message:</label>
+        <textarea id="gmail-message" name="gmail-message" rows="4" required></textarea>
+
+        <input type="submit" value="Send to WhatsApp">
+    </form>
+
+    <script>
+        const form = document.getElementById('gmail-to-whatsapp-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+    
+            const gmailAddress = document.getElementById('gmail-address').value;
+            const whatsappNumber = document.getElementById('whatsapp-number').value;
+            const gmailSubject = document.getElementById('gmail-subject').value;
+            const gmailMessage = document.getElementById('gmail-message').value;
+    
+            const message = {
+                body: Subject:{HI}\n\n${hiii},
+                to: whatsapp:${+919390155053}
+            };
+    
+            const url = https://api.whatsapp.com/v1/messages;
+    
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer <your-access-token>'
+                },
+                body: JSON.stringify(message)
+            });
+    
+            if (response.ok) {
+                alert('Message sent to WhatsApp!');
+            } else {
+                alert('Error sending message to WhatsApp.');
+            }
+        });
+    </script>
+    </body>
+</html>
