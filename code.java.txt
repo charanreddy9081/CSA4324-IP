@@ -1,0 +1,43 @@
+// Assuming you have a form with id 'emailForm' and an input field with id 'emailInput'
+const emailForm = document.getElementById('emailForm');
+const emailInput = document.getElementById('emailInput');
+
+// Function to validate email
+function validateEmail(email) {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+// Function to handle form submission
+function handleSubmit(event) {
+  event.preventDefault();
+
+  const email = emailInput.value.trim();
+
+  if (!validateEmail(email)) {
+    alert('Please enter a valid email address');
+    return;
+  }
+
+  // Assuming you have a server-side script to handle the email alert
+  fetch('/path/to/your/server-side/script', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to send email alert');
+      }
+      alert('Email alert sent successfully');
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert('Failed to send email alert. Please try again later.');
+    });
+}
+
+// Attach the handleSubmit function to the form's submit event
+emailForm.addEventListener('submit', handleSubmit);
